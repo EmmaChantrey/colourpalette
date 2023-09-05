@@ -28,6 +28,12 @@ const generatePalette = () => {
 
     const colour = document.createElement("li");
     colour.classList.add("colour");
+
+    if (lockedColors.has(randomHex)) {
+      colour.classList.add("locked");
+      colour.style.border = "solid";
+    }
+    
     colour.innerHTML = `<div class="colourimage" style="background: ${randomHex}"></div>
                          <div class="hex">${randomHex}</div>`;
     colour.addEventListener("click", () => toggleLockColour(colour, randomHex));
@@ -45,9 +51,11 @@ const toggleLockColour = (colourElement, colorHex) => {
   if (lockedColors.has(colorHex)) {
     lockedColors.delete(colorHex);
     colourElement.classList.remove("locked");
+    colourElement.style.border = ""; 
   } else {
     lockedColors.add(colorHex);
     colourElement.classList.add("locked");
+    colourElement.style.border = "solid"; 
   }
 };
 
